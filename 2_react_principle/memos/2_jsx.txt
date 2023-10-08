@@ -1,0 +1,37 @@
+-------------------------------------------------------
+
+가상 DOM을 사용하기 위해 React.createElement를 호출하여 가상 DOM
+객체를 얻는것은 좋지만 DOM 구조자체가 복잡해지면 호출하기 쉽지 않다.
+
+
+import React from "react"
+import ReactDOM from "react-dom"
+
+const CE = React.createElement
+
+const virtualDOM = CE('ul', null, [
+  CE('a', { 
+    href:"https://www.google.com", 
+    target: "_blank" 
+  }, [
+    CE('p', null, 'go to google')
+  ])
+])
+const root = ReactDOM.createRoot(document.getElementById('root'))
+
+root.render(virtualDOM)
+
+-------------------------------------------------------
+
+위와 같은 호출의 복잡성을 해결하고자 JSX를 구현했다.
+(Javascript XML)
+
+=> HTML과 유사한 문법으로 손쉽게 가상 DOM을 정의
+=> 개발 생산성의 향상
+
+=> XML 규약은 시작 태그, 끝 태그, attribute, children으로 구성된다.
+=> children이 없다면 <Tag />와 같은 형식으로 작성가능하며 이를
+   Self-Closing Tag라고 한다.
+=> {}를 통해 exrpession을 삽입 가능
+
+-------------------------------------------------------

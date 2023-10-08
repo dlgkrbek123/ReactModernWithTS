@@ -1,0 +1,97 @@
+-------------------------------------------------------
+
+프로젝트 생성
+> npx create-react-app ch2_01 --template typescript
+> npm install luxon chance
+> npm install -D @types/luxon @types/chance
+
+-------------------------------------------------------
+
+react18버전에서는 아래와 같이 index.tsx가 구성됨
+=> root를 생성한다.
+=> 해당 root에 최상위 컴포넌트를 렌더링
+
+const root = ReactDOM.createRoot(
+  document.getQuerySelector('root')
+)
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
+
+-------------------------------------------------------
+
+react17버전에서는 render 메소드하나로 root를 렌더링한다.
+이런 차이는 SSR 기능이 향상된 것과 관련이 있다.
+
+ReactDOM.render(<App />, document.getQuerySelector('root'))
+
+-------------------------------------------------------
+
+react
+=> 리액트의 핵심 기능 제공
+=> 리액트가 동작하는 환경에 무관한 공통 기능
+=> Component, JSX, hook
+
+
+react-dom
+=> 렌더러
+=> 리액트가 동작하는 환경에 종속적인 기능을 제공
+
+-------------------------------------------------------
+
+react-dom/client와 react-dom/server 는 웹환경에 종속된 기능을 제공
+
+마크업 언어
+=> 작성이 쉽고 컴퓨터도 의미를 쉽게 파악할 수 있는 텍스트
+=> 아래와 같이 작성하면 사람과 컴퓨터 모두 의미를 명확히 파악 가능
+
+<Person name='Jack' age="32" />
+
+=> 마크업언어는 element로 구성된다. (html, head, meta, body)
+=> 요소는 트리구조를 구성하며 관계를 가진다.
+
+
+DOM
+=> 브라우져는 문서를 파싱해서 문자열을 객체로 변환한다.
+=> 이 객체는 요소에 필요한 인터페이스를 구현한다.
+=> 이런 인터페이스를 문서 객체 모델이라고 한다.
+
+=> 브라우져의 JS엔진은 window라는 전역변수를 제공한다.
+=> 이는 브라우져의 특정 웹페이지를 의미한다.
+=> Window 타입의 객체로 이 타입은 브라우져 객체 모델이라 한다.
+   (Browser Object Model)
+
+-------------------------------------------------------
+
+기존의 프론트 개발은 직접 DOM을 조작하여 렌더링했다.
+(createElement, appendChild, innterHTML, ...)
+
+-------------------------------------------------------
+
+리액트는 ReactElement를 리턴하는 createElement 함수 호출을 
+통해 그려져야 할 가상 DOM 객체를 정의
+
+React.createElement(type, props, children) : ReactElement
+
+  type      : Component | string
+  props    ?: Attributes | null
+  children ?: ReactNode[]
+
+
+root.render 호출로 가상 DOM 렌더링(메모리 사용)을 수행하고, 
+가상 DOM과 실제 DOM을 비교하여 바뀐 부분만 실제 DOM에 적용하여,
+DOM 업데이트를 빠르게 수행하는게 가상 DOM의 핵심이다.
+
+-------------------------------------------------------
+
+import React from "react"
+import ReactDOM from "react-dom/client"
+
+const pVirtualDOM = React.createElement('p', null, "Hello")
+const root = ReactDOM.createRoot(document.getElementById('root'))
+
+root.render(pVirtualDOM)
+
+-------------------------------------------------------

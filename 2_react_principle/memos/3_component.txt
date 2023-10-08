@@ -1,0 +1,136 @@
+-------------------------------------------------------
+
+컴포넌트는 리액트의 핵심 기능
+클래스 컴포넌트와 함수 컴포넌트로 두 종류로 분류한다.
+
+-------------------------------------------------------
+
+컴포넌트는 화면 UI를 처리하는 클래스
+컴포넌트는 MVC 설계지침에 따라 구현된 클래스
+hooks가 나오면서 함수형태로도 구현이 가능해짐
+
+-------------------------------------------------------
+
+div, h1등은 리액트에서 제공하는 자체 컴포넌트
+=> HTML 요소 태그에 대응되는 컴포넌트를 제의
+=> React.createElement의 첫 번쨰 인자에 string이 전달
+=> 소문자로 시작한다.
+
+
+사용자 정의 컴포넌트는 대문자로 시작한다.
+=> React.createElement의 첫 번째 인자에
+     FunctionalComponet나 ComponentClass를 전달
+=> 코드를 간결하게 해준다.
+
+-------------------------------------------------------
+
+클래스 컴포넌트
+=> React에서 제공하는 Component 클래스를 상속해야함
+=> render라는 메소드를 포함해야 하며 해당 메소드는
+    가상 DOM객체를 리턴해야 한다.
+
+
+import { Component } from 'react';
+
+export default class App extends Component {
+  render() {
+    return <div>대준식</div>;
+  }
+}
+
+-------------------------------------------------------
+
+props (속성)
+=> 부모컴포넌트에서 자식 컴포넌트쪽에 값을 전달하는 것
+=> props는 객체이다.
+=> optional 이다.
+=> props가 변경되어 전달되면 해당 컴포넌트는 리렌더링되어,
+     props의 변화가 화면에 바로 반영된다.
+=> 자식에서 접근시에는 this.props로 접근가능하다.
+=> props를 spread 연산자를 활용하여 자신의 props를 
+     자식 컴포넌트의 props로 그대로 전달가능
+
+import { Component } from "react"
+
+type TClassCompProps = {
+  href: string
+  text: string
+}
+
+export default class ClassComponent extends Component<TClassCompProps> {
+  render() {
+    const { href, text } = this.props;
+
+    return (
+      <li>
+        <a href={href}>
+          <p>{text}</p>
+        </a>
+      </li>
+    )
+  }
+}
+
+-------------------------------------------------------
+
+함수형 컴포넌트
+=> 클래스형 컴포넌트는 실제 로직 작성부분에 비해
+     보일러 플레이트 부분이 많다.
+=> 함수형 컴포넌트를 사용하면 훨씬 간결하게 작성가능하다.
+=> function 키워드를 사용하거나 화살표 함수를 사용 가능
+=> 함수의 리턴값이 가상 DOM객체를 리턴하면 된다.
+
+export default function App() {
+  return <h1>function component</h1>
+}
+
+/* ArrowComponent 예제  */
+
+-------------------------------------------------------
+
+모든 리액트 컴포넌트는 key와 ref라는 props를 가진다.
+children이라는 props를 선택적으로 가진다.
+
+
+key
+=> 같은 이름의 컴포넌트가 여러개 일때 이를 구분하려는 
+     목적으로 고유한 값이 입력되어야 함
+=> 문자열이나 숫자를 설정해야 함
+=> 반드시 설정할 필요는 없는 optional props
+
+
+children
+=> 컴포넌트 내부에 삽입될 가상 DOM을 나타내는 props
+
+import type {FC, Reactnode} from "react"
+
+export type TProps = {
+  children?: ReactNode;
+}
+
+const P: FC<TProps> = props => {
+  const { children } = props;
+
+  return <p children={children}/>
+}
+
+export default P
+
+-------------------------------------------------------
+
+React 17까지는 children props를 FC에 포함했었다.
+React18부터 FC타입에 children을 제외했다.
+=> PropsWIthChildren 제네릭 타입을 새로 제공
+=> children?: ReactNode 를 PropsWIthChildren타입으로 대체
+
+import type { FC, PropsWithCHildren } from "react";
+
+export type PProps = {}
+
+const P: FC<PropsWIthChildren<PProps>> = props => {
+  return <p  {...props} />
+}
+
+export default P
+
+-------------------------------------------------------

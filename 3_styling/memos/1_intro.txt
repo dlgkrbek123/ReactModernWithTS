@@ -1,0 +1,73 @@
+---------------------------------------------------------------------------------
+
+> npx create-react-app ch03_1 --template typescript
+> npm i chance luxon
+> npm i -D @types/chance @types/luxon
+
+---------------------------------------------------------------------------------
+
+컴포넌트 스타일링을 위해서는 CSS를 사용
+css부분은 부트스트랩같은 CSS 프레임워크를 사용용할 수 있음
+
+/* 
+  1차적으로 head에 <link>를 삽입해서 cdn으로 
+  전역 스타일 설정
+*/
+
+bootstrap의 forms의 예제를 복사하니 몇개의 에러 발생
+=> JSX는 결국 createElement 호출로 변환환되고 이는 JS코드이다.
+=> HTML attribute에 들어가는 props가 JS 키워드와 겹치면 모호성
+     문제가 발생한다.     
+
+=> class는 js에서의 키워드이므로 이를 대체하기 위해 
+     JSX에서 요소 class를 지정하기 위해 className을 써야한다.
+
+=> for 또한 js의 키워드이므로 label의 for attribute를 사용하려면
+    htmlFor를 사용해야 한다.
+
+---------------------------------------------------------------------------------
+
+웹팩을 통해 Bootstrap을 사용해보자
+=> 웹팩은 css, js, 이미지등을 하나의 번들로 번들링해줌
+=> css를 import해서 사용가능하다. 
+
+css에서 @로 시작하는 구문을 at rules라고 부른다.
+=> @import 규칙은 css파일에서 다른 css파일을 사용하기 
+     위해 적용한다.
+=> <link href='' rel='stylesheet' />를 대체한다고 이해하면 좋다.
+
+@import url('https://fonts.google.com/icon?family=Material+Icons');
+
+/* index.css에서 @import사용 */
+/* pages/Icon 작성                    */
+=> material-icons 요소에 innerText에 상응하는 아이콘이 노출된다.
+
+---------------------------------------------------------------------------------
+
+style props를 통한 인라인 스타일링
+=> html요소는 style이라는 attribute로 문자열로 인라인으로
+     css를 설정가능하다.
+=> 리액트에서는 style props에 객체를 전달해서 인라인 스타일링
+     이 가능하다.
+
+/* pages/Style.tsx 작성 */
+
+---------------------------------------------------------------------------------
+
+npm 패키지로 아이콘 사용하기
+=> @import로 외부자원을 활용가능능하나 네트워크 속도에 
+     영향을 받는다.
+=> 따라서 대부분의 서비스는 npm 패키지로 구현된 
+     프레임워크를 내장하는  형태로 배포한다.
+
+=> @import는 웹 안전 글꼴만 사용해야하는 제약이 있다.
+=> 웹 안전전글꼴이란 모든 장치에서 동작하는 모든 브라우져에
+      적용가능한 글꼴
+=> https://fontsource.org에서 오픈소스 웹 안전 글꼴꼴을 
+     패키지형태로 설치가능
+
+> npm install @fontsource/material-icons
+/* @import 문 삭제 */
+/* src/components/Icon.tsx  */
+
+--------------------------------------------------------------------------------

@@ -1,0 +1,74 @@
+--------------------------------------------------------------------------------
+
+프로젝트 생성
+
+> npx create-react-app ch3_02 --template typescript
+> npm i chance luxon @fontsource/material-icons
+> npm i -D @types/chance @types/luxon
+
+--------------------------------------------------------------------------------
+
+CSS개발은 브라우져 호환성과 벤더 프리픽스같은 문제로 어려움이 있었다.
+=> 이를 극복하려고 Sass/SCSS라는 스타일 언어를 구현했다.
+=> 반복문과 nesting, autoprefixer 기능을 제공한다.
+
+이후에 "모듈화된 CSS"를 위한 PostCSS라는 스타일언어와 프로그램이 탄생
+=> autoprefixer는 기본으로 제공한다.
+=> 웹팩이 만든 CSS를 가공해서 최종 CSS를 만들어낸다.
+=> 즉 웹팩의 플로그인이다.
+
+--------------------------------------------------------------------------------
+
+테일윈드CSS는 CSS 프레임워크
+=> 부트스트랩과 같이 많이 사용된다.
+=> 고수준 CSS 프레임워크를 사용해 컴포넌트 스타일링을 쉽게 할 수 있다.
+
+/* 라이브러리 설치 */
+> npm i -D postcss autoprefixer tailwindcss
+
+=> Postcss와 tailwind는 구성파일이 필요하다
+=> tailwind는 PostCSS의 플로그인 형태로 동작
+
+
+/* 구성파일 초기 설정 */
+> npx tailwindcss init -p
+  => postcss.config.js와 tailwind.config.js가 생성됨
+
+--------------------------------------------------------------------------------
+
+daisyui
+=> tailwind는 부트스트랩같은 프레임워크를 쉽게 개발하게 해주는 프레임워크
+=> 따라서 tailwind 자체로 btn-primary와 같은 컴포넌트를 제공 X
+=> diasyui는 무료로 여러개의 컴포넌트를 제공하는 플러그인
+
+> npm i -D daisyui
+> npm i -D @tailwindcss/line-clamp
+
+--------------------------------------------------------------------------------
+
+/* tailwind.config.js 수정 */
+
+/* index.css에 추가 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tailwindcss.tsx 작성 */
+=> className으로 디자인을 적용한다.
+=> 테일윈드에서 색상과 관련된 class를 제공한다.
+=> 채도는 50, 100,...,900의 번호로 세분한다.
+=> opacity는 20 ~ 100까지 지원한다.
+
+  {prefix}-{color}/{opacity}
+  {prefix}-{color}-{saturation}/{opacity}
+
+  bg-black/70 => 백그라운드를 검은색으로 + opacity는 0.7
+
+/* Color.tsx 작성 */
+=> bg, text, border같은 접두사를 활용
+
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------

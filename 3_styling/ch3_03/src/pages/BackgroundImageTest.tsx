@@ -1,12 +1,17 @@
-import { Title } from '../components';
+import { Div, Title, Subtitle } from '../components';
+import * as D from '../data';
 
-const CopyMe = () => {
+const src = D.randomImage(1200, 400);
+
+const BackgroundImageTest = () => {
   return (
-    <section>
-      <Title>CopyMe</Title>
-      <div className="mt-4"></div>
+    <section className="mt-4">
+      <Title>BackgroundImageTest</Title>
+      <Div className="mt-4 bg-gray-300 h-80" src={src}>
+        <Subtitle className="text-gray-500">Some Text here</Subtitle>
+      </Div>
     </section>
   );
 };
 
-export default CopyMe;
+export default BackgroundImageTest;

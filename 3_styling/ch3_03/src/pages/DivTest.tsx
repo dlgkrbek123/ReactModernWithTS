@@ -1,12 +1,15 @@
-import { Title } from '../components';
+import { Title, Subtitle, Div, Icon } from '../components';
 
-const CopyMe = () => {
+const DivTest = () => {
   return (
-    <section>
-      <Title>CopyMe</Title>
-      <div className="mt-4"></div>
+    <section className="mt-4">
+      <Title>DivTest</Title>
+      <Div className="text-center text-blue-100 bg-blue-600" height="6rem">
+        <Icon name="home" className="text-3xl" />
+        <Subtitle>Home</Subtitle>
+      </Div>
     </section>
   );
 };
 
-export default CopyMe;
+export default DivTest;

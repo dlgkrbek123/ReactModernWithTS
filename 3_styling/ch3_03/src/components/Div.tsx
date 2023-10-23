@@ -5,6 +5,7 @@ import type {
   PropsWithChildren,
 } from 'react';
 import type { WIdthHeight } from './WIdthHeight';
+import type { LeftRightTopBottom } from './LeftRightTopBottom';
 
 export type ReactDIvProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
@@ -12,7 +13,8 @@ export type ReactDIvProps = DetailedHTMLProps<
 >;
 
 export type DivProps = ReactDIvProps &
-  PropsWithChildren<WIdthHeight> & {
+  PropsWithChildren<WIdthHeight> &
+  LeftRightTopBottom & {
     src?: string;
   };
 
@@ -22,6 +24,10 @@ export const Div: FC<DivProps> = ({
   style: _style,
   src,
   className: _className,
+  left,
+  right,
+  top,
+  bottom,
   ...props
 }) => {
   const style = {
@@ -29,6 +35,10 @@ export const Div: FC<DivProps> = ({
     width,
     height,
     backgroundImage: src && `url(${src})`,
+    left,
+    right,
+    top,
+    bottom,
   };
   const className = ['box-sizing', src && 'bg-gray-300', _className].join(' ');
 

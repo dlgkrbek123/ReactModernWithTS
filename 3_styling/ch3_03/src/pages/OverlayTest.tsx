@@ -1,12 +1,19 @@
-import { Title } from '../components';
+import { Title, Div, Icon, Overlay } from '../components';
 
-const CopyMe = () => {
+const OverlayTest = () => {
   return (
-    <section>
-      <Title>CopyMe</Title>
-      <div className="mt-4"></div>
+    <section className="mt-4">
+      <Title>OverlayTest</Title>
+      <Overlay opacityClass="bg-black/70">
+        <Div className="relative flex items-center justify-center p-8 bg-white h-1/2">
+          <Div className="absolute" right="1rem" top="1rem">
+            <Icon name="close" className="text-gray-500" />
+          </Div>
+          <p className="text-5xl">modal dialog box</p>
+        </Div>
+      </Overlay>
     </section>
   );
 };
 
-export default CopyMe;
+export default OverlayTest;

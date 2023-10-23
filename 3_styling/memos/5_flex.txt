@@ -1,0 +1,35 @@
+--------------------------------------------------------------------------------
+
+flexbox layout
+=> 컨테이너에 display: flex를 설정하고 콘텐츠 아이템을 배치한 것
+=> 컨테이너 내부의 아이템의 display의 inline, block 속성은 무시됨
+
+
+flex-direction
+=> 컨테이너의 주축을 설정
+
+/* DirectionTest 실습 */
+
+
+flex-wrap
+=> 플렉스 컨테이너 내부에서의 개행을 제어
+=> 아이템을 더이상 수평내에 배치할 수 없을때 어떻게 동작할지?
+
+
+justify-content, align-items
+=> flex container 내부 콘텐츠의 정렬을 제어
+  => justify-content => 주축의 정렬
+  => align-items     => 수직축의 정렬
+
+/* JustifyCenterTest 실습 */
+/* UserContainer 실습     */
+/* CardContainer 실습     */
+
+--------------------------------------------------------------------------------
+
+min-width, max-width, min-height, max-height
+=> 너비와 높이의 최소, 최대값을 지정
+
+/* MinMaxTest 실습 */
+
+--------------------------------------------------------------------------------

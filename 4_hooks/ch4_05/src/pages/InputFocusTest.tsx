@@ -1,0 +1,25 @@
+import { useRef, useEffect } from 'react';
+import { Title } from '../components';
+
+const InputFocusTest = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  return (
+    <section className="mt-4">
+      <Title>InputFocusTest</Title>
+      <div className="flex justify-center mt-4">
+        <input
+          ref={inputRef}
+          className="input input-primary"
+          placeholder="enter some text"
+        />
+      </div>
+    </section>
+  );
+};
+
+export default InputFocusTest;

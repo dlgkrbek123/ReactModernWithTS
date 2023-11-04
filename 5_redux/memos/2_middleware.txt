@@ -1,0 +1,48 @@
+---------------------------------------------------------------------------------
+
+미들웨어
+=> 리듀서는 순수함수를 지켜야 하는 제약이 있다.
+=> action이 리듀서에 전달되기전에 순수함수의 제약에 걸리는 코드를 실행시켜
+   결과 값을 리듀서로 전달하는 역할
+=> 고차함수
+
+export function someMiddleWare<S = any>({dispatch: Dispatch, getState}: {getState: () => S}) {
+  return (next: Dispatch) => (action: Action) => {
+    return next(action)
+  }
+}
+
+---------------------------------------------------------------------------------
+
+import { Action, Dispatch } from 'redux';
+
+export default function logger<S = any>({ getState }: { getState: () => S }) {
+  return (next: Dispatch) => (action: Action) => {
+    console.log('state before next', getState());
+    console.log('action', action);
+    const returnedAction = next(action);
+    console.log('state after next', getState());
+
+    return returnedAction;
+  };
+}
+
+---------------------------------------------------------------------------------
+
+redux-thunk는 액션의 타입을 확인하여 함수면 호출하는 기능을 추가해준다.
+/* 로딩 UI 예제 */
+
+
+export function thunkMiddleware = ({ dispatch, getState }) => {
+  return (next) => (action) => {
+    return typeof action === 'function' ? action(dispatch, getState) : next(action) 
+  }
+}
+
+---------------------------------------------------------------------------------
+
+Error는 js엔진에서 제공하는 타입 
+Error | null로 구현한다.
+UI관점에서는 error.message가 중요
+
+---------------------------------------------------------------------------------

@@ -1,0 +1,89 @@
+---------------------------------------------------------------------------------
+
+URL
+=> 인터넷 자원의 위치 (html, css, image등 브라우저가 이해할 수 있는 데이터)
+=> 브라우저가 웹서버에 자원을 요청할 때 사용
+=> 프로토콜 + 도메인 + 포트 + 경로 + 쿼리 + 프래그먼트
+
+프로토콜 : http://, https://
+도메인  : 서버의 주소를 나타냄
+
+---------------------------------------------------------------------------------
+
+location 객체로 주소에 대한 정보를 얻을 수 있다.
+
+  href : 주소창에 입력된 전체 문자열
+  protocol : URL의 프로토콜
+  host     : 도메인 + 포트
+  pathname : 경로
+  search   : 쿼리 매개변수
+  hash     : 프래그먼트 문자열
+
+---------------------------------------------------------------------------------
+
+history 객체로 히스토리 이동이 가능
+
+---------------------------------------------------------------------------------
+
+라우팅: 웹서버에서 URL에 명시된 자원을 찾는 과정
+       보통 서버에서 일어남, react는 클라이언트 라우팅
+
+전통적인 웹서버는 MPA라고 불리며 페이지 전환마다 서버에 페이지 요청
+react는 라우팅이 브라우저에서 일어나는 방식이라 SPA
+=> 처음 요청시에만 html + 번들을 내려받음
+=> 클라이언트에서 코드가 수행되며 주소에 맞는 페이지 노출
+
+---------------------------------------------------------------------------------
+
+<BrowserRouter>로 전체 APP을 감싸야함
+
+import { BrowserRouter } from "react-router-dom"
+import RoutesSetup from "./routes/RoutesSetup"
+
+<BrowserRouter>
+  <RoutesSetup />
+</BrowserRouter>
+
+---------------------------------------------------------------------------------
+
+// Route는 모두 exact로 동작하며 Routes가 Switch와 같다고 보면 된다.
+
+import { Routes, Route } from 'react-router-dom'
+
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="*" element={<NoMatch />} />
+</Routes>
+
+---------------------------------------------------------------------------------
+
+import { Link } from 'react-router-dom'
+
+<Link to="/home" />Home</Link>
+
+---------------------------------------------------------------------------------
+
+커스텀 Link
+
+import type { FC } from "react";
+import type { LinkProps as RRLinkProps } from "react-router-dom";
+import { useResolvedPath, useMatch } from "react-router-dom"
+import { Link as RRLink } from "react-router-dom"
+
+export type LinkProps = RRLinkProps & {}
+
+export const Link: FC<LinkProps> = ({ className: _className, to, ...props }) => {
+  const resolved = useResolvedPath(to); // 현재 path
+  const match = useMatch({ path: resolved.pathname, end: true}); // 매칭 여부
+  const className = [_className, match ? 'btn-active' : ''].join(' ')
+
+  return (
+    <RRLink 
+      to={to} 
+      className={className}  
+      {...props}  
+    />
+  )
+}
+
+---------------------------------------------------------------------------------

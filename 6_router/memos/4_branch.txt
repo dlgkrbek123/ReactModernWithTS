@@ -1,0 +1,59 @@
+---------------------------------------------------------------------------------
+
+public route : 누구나 접속가능한 경로
+private route : 로그인한 사용자만 접속가능한 경로
+
+컨텍스트를 생성 (로그인한 유저 + 메소드로 구성)
+=> Provider 설정
+=> hooks도 구현
+
+---------------------------------------------------------------------------------
+
+<Routes>
+  <Route path="/" element={<Layout />}>
+    <Route index element={<LandingPage />} />
+    <Route path="/board" element={<Board />} />
+    <Route path="*" element={<NoMatch /> } />
+  <Route>
+
+  <!- 아래 애들은 공용 레이아웃 안씀 ->
+  <Route path="/signup" element={<SignUp />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/logout" element={<Logout />} />
+  <Route path="*" element={<NoMatch />} />
+</Routes>
+
+---------------------------------------------------------------------------------
+
+private route를 주소에 입력시 로그인하지 않았어도 접근자체는 가능
+로그인하지 않은 상태에서 접근불가능하게 처리
+
+<Route 
+  path="/board"
+  element={
+    <RequireAuth>
+      <Board />
+    </RequireAuth>
+  }
+/>
+
+import type { FC, PropsWithChildren } from "react";
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../contexts"
+
+const RequireAuth: FC<PropsWithChildren<Props>> = {
+  const { loggedUser } = useAuth();
+  const navigate = useNavigate()
+
+  useEffect(()=> {
+    if(!loggedUser) navigate(-1)
+  }, [loggedUser])
+
+  return <>{children}</>
+}
+
+---------------------------------------------------------------------------------
+
+
+

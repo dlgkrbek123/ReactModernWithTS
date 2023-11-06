@@ -1,0 +1,27 @@
+---------------------------------------------------------------------------------
+
+<Outlet />은 다른 컴포넌트들이 렌더링 되는위치를 지정한다.
+=> 자식 라우트 경로에 설정된 라우트를 노출
+=> 중첩 라우트의<Route />의 index props를 이용하여 인덱스에 노출될 라우트 지정가능
+
+<Routes>
+  <Route path="/" element={<Layout />}
+    <Route index element={<Index />} />
+    <Route path="/board" element={<Board />} />
+    <Route path="/*" element={<NoMatch />} />
+  </Route>
+</Routes>
+
+---------------------------------------------------------------------------------
+
+import { Outlet } from "react-router-dom"
+
+export default function Layout() {
+  return <>
+    <NavigationBar />
+    <Outlet />
+    <Footer />
+  </>
+}
+
+---------------------------------------------------------------------------------
